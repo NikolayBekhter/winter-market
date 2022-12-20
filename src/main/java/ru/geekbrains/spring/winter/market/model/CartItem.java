@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.winter.market.dtos;
+package ru.geekbrains.spring.winter.market.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,4 +13,9 @@ public class CartItem {
     private int quantity;
     private int costPerProduct;
     private int cost;
+
+    public void changeQuantity(int delta) {
+        quantity += delta;
+        cost = costPerProduct * quantity;
+    }
 }

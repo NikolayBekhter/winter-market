@@ -1,6 +1,21 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/winter/api/v1';
 
+    $scope.tryToAuth = function() {
+        $http.post('http://localhost:8189/winter/auth', $scope.user)
+            .then(function successCallback(response) {
+                if (response.data.token) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                    $localStorage.SpringWebUser = {username: $scope.user.username, token: response.data.token};
+
+                    $scope.user.username = null;
+                    $scope.user.password = null;
+
+                    $http.get
+                }
+            });
+    };
+
     $scope.loadProducts = function (pageIndex = 1) {
         $http({
             url: contextPath + '/products',
@@ -38,24 +53,45 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 });
         };
     $scope.loadCart= function () {
-                $http.get(contextPath + '/cart')
+            $http.get(contextPath + '/cart')
                     .then(function (response) {
                         console.log(response.data);
                         $scope.cart = response.data;
                     });
-            };
+    };
     $scope.sendToBasket = function (productId) {
             $http.get(contextPath + '/cart/add/'+ productId)
                 .then(function (response) {
                     $scope.loadCart();
                 });
-        };
-    $scope.deleteFromCart = function (basketId) {
-            $http.get(contextPath + '/cart/delete/' + basketId)
+    };
+    $scope.deleteFromCart = function (productId) {
+            $http.get(contextPath + '/cart/remove/' + productId)
                 .then(function (response) {
                     $scope.loadCart();
                 });
+    };
+
+    $scope.clearCart = function () {
+            $http.get(contextPath + '/cart/clear')
+                 .then(function (response) {
+                     $scope.loadCart();
+                 });
+    };
+
+    $scope.changeQuantity = function (productId, delta) {
+            $http({
+                url: contextPath + '/cart/change_quantity',
+                method: 'GET',
+                params: {
+                    productId: productId,
+                    delta: delta
+                }
+            }).then(function (response) {
+                $scope.loadCart();
+            });
         };
+
     $scope.loadProducts();
     $scope.loadCart();
 });
