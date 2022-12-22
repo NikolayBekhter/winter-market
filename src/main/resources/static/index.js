@@ -1,4 +1,4 @@
-angular.module('app', []).controller('indexController', function ($scope, $http) {
+angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
     const contextPath = 'http://localhost:8189/winter/api/v1';
 
     $scope.tryToAuth = function() {
@@ -6,15 +6,48 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.SpringWebUser = {username: $scope.user.username, token: response.data.token};
+                    $localStorage.winterMarketUser = {username: $scope.user.username, token: response.data.token};
 
                     $scope.user.username = null;
                     $scope.user.password = null;
-
-                    $http.get
                 }
             });
     };
+
+    $scope.tryToLogout = function () {
+        $scope.clearUser();
+        $scope.user = null;
+    };
+
+    $scope.clearUser = function () {
+        delete $localStorage.winterMarketUser;
+        $http.defaults.headers.common.Authorization = '';
+    };
+
+    $scope.isUserLoggedIn = function () {
+        if ($localStorage.winterMarketUser) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    if ($localStorage.winterMarketUser) {
+        try {
+            let jwt = $localStorage.winterMarketUser.token;
+            let payload = JSON.parse(atob(jwt.split('.')[1]));
+            let currentTime = parseInt(new Date().getTime() / 1000);
+            if (currentTime > payload.exp) {
+                console.log("Token is expired!!!");
+                delete $localStorage.winterMarketUser;
+                $http.defaults.headers.common.Authorization = '';
+            }
+        } catch (e) {
+        }
+
+        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.winterMarketUser.token;
+
+    }
 
     $scope.loadProducts = function (pageIndex = 1) {
         $http({
@@ -52,13 +85,17 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                     $scope.loadProducts();
                 });
         };
-    $scope.loadCart= function () {
+
+    $scope.loadCart = function () {
             $http.get(contextPath + '/cart')
                     .then(function (response) {
                         console.log(response.data);
                         $scope.cart = response.data;
+                        let totalCost = response.data.totalCost;
+                        console.log(totalCost + ' items');
                     });
     };
+
     $scope.sendToBasket = function (productId) {
             $http.get(contextPath + '/cart/add/'+ productId)
                 .then(function (response) {
@@ -92,6 +129,18 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
         };
 
+    $scope.createOrder = function () {
+        $http.post(contextPath + '/orders')
+            .then(function (response) {
+                console.log(response.data);
+                $scope.clearCart();
+                alert('Ваш заказ создан!');
+            });
+    };
+
+
+
     $scope.loadProducts();
     $scope.loadCart();
+
 });
