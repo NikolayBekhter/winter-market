@@ -1,0 +1,36 @@
+package ru.geekbrains.winter.market.core.controllers;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.winter.api.ResourceNotFoundException;
+import ru.geekbrains.winter.market.core.entities.Order;
+import ru.geekbrains.winter.market.core.entities.User;
+import ru.geekbrains.winter.market.core.services.OrderService;
+import ru.geekbrains.winter.market.core.services.UserService;
+
+import java.security.Principal;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/orders")
+@CrossOrigin("*")
+public class OrderController {
+    private final UserService userService;
+    private final OrderService orderService;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createOrder(Principal principal) {
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Пользователь " + principal.getName() + " не найден!"));
+        orderService.createOrder(user);
+        //TODO формируется заказ из пустой корзины...
+    }
+
+    @GetMapping
+    public List<Order> getOrder(Principal principal) {
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Пользователь " + principal.getName() + " не найден!"));
+        return orderService.getOrder(user);
+    }
+}
