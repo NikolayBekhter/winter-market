@@ -1,9 +1,9 @@
 package ru.geekbrains.winter.market.carts.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.winter.api.ProductDto;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.carts.integrations.ProductServiceIntegration;
 import ru.geekbrains.winter.market.carts.model.Cart;
 
@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class CartService {
     private final ProductServiceIntegration productServiceIntegration;
     private Cart tempCart;

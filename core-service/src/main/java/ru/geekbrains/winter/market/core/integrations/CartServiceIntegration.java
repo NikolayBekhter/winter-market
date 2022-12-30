@@ -27,7 +27,7 @@ public class CartServiceIntegration {
 
     public CartDto getCurrentCart() {
         return cartServiceWebClient.get()
-                .uri("/api/v1/cart")
+                .uri("api/v1/cart")
                 .retrieve()
                 .onStatus(
                         httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
