@@ -1,0 +1,28 @@
+server:
+  port: 8189
+  servlet:
+    context-path: /winter
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/winter-market
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: admin
+
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    hibernate:
+      ddl-auto: none
+
+jwt:
+  secret: 5agwerDFHgp0weg703utjSFJDshbsHHio3njc234rypnc998t7bhn36AZBNGUK34056jvg0359DBGNJDTN4vnt035tn938457v
+  lifetime: 300000
+
+integrations:
+  cart-service:
+    url: http://localhost:8190/winter-carts/
+    read-timeout: 10000
+    write-timeout: 5000
+    connect-timeout: 5000
