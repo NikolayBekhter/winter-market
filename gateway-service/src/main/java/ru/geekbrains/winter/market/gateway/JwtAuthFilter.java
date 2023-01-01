@@ -24,7 +24,6 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
 
     @Override
     public GatewayFilter apply(Config config) {
-        log.info("JwtAuthFilter");
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             if (!isAuthMissing(request)) {

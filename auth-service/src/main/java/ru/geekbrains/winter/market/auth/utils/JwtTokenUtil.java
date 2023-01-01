@@ -24,7 +24,6 @@ public class JwtTokenUtil {
     private Long jwtLifetime;
 
     public String generateToken(UserDetails userDetails) {
-        log.info(userDetails);
         Map<String, Object> claims = new HashMap<>();
         List<String> rolesList = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -38,7 +37,7 @@ public class JwtTokenUtil {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(issuedDate)
                 .setExpiration(expiredDate)
-                .signWith(SignatureAlgorithm.HS256, secret.getBytes())
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
