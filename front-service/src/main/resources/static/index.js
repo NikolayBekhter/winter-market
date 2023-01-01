@@ -1,8 +1,8 @@
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
-    const contextPath = 'http://localhost:8189/winter/api/v1';
+    const contextPath = 'http://localhost:5555/core/api/v1';
 
     $scope.tryToAuth = function() {
-        $http.post('http://localhost:8189/winter/auth', $scope.user)
+        $http.post('http://localhost:5555/auth/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
@@ -87,7 +87,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         };
 
     $scope.loadCart = function () {
-            $http.get('http://localhost:8190/winter-carts/api/v1/cart')
+            $http.get('http://localhost:5555/cart/api/v1/cart')
                     .then(function (response) {
                         console.log(response.data);
                         $scope.cart = response.data;
@@ -97,20 +97,20 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     };
 
     $scope.sendToBasket = function (productId) {
-            $http.get('http://localhost:8190/winter-carts/api/v1/cart/add/'+ productId)
+            $http.get('http://localhost:5555/cart/api/v1/cart/add/'+ productId)
                 .then(function (response) {
                     $scope.loadCart();
                 });
     };
     $scope.deleteFromCart = function (productId) {
-            $http.get('http://localhost:8190/winter-carts/api/v1/cart/remove/' + productId)
+            $http.get('http://localhost:5555/cart/api/v1/cart/remove/' + productId)
                 .then(function (response) {
                     $scope.loadCart();
                 });
     };
 
     $scope.clearCart = function () {
-            $http.get('http://localhost:8190/winter-carts/api/v1/cart/clear')
+            $http.get('http://localhost:5555/cart/api/v1/cart/clear')
                  .then(function (response) {
                      $scope.loadCart();
                  });
@@ -118,7 +118,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.changeQuantity = function (productId, delta) {
             $http({
-                url: 'http://localhost:8190/winter-carts/api/v1/cart/change_quantity',
+                url: 'http://localhost:5555/cart/api/v1/cart/change_quantity',
                 method: 'GET',
                 params: {
                     productId: productId,
@@ -130,7 +130,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         };
 
     $scope.createOrder = function () {
-        $http.post(contextPath + '/orders')
+        $http.post('http://localhost:5555/core/api/v1/orders')
             .then(function (response) {
                 console.log(response.data);
                 $scope.clearCart();

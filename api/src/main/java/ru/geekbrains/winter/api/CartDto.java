@@ -1,10 +1,11 @@
 package ru.geekbrains.winter.api;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CartDto {
     private List<CartItemDto> items;
-    private int totalCost;
+    private BigDecimal totalCost;
 
     public List<CartItemDto> getItems() {
         return items;
@@ -14,11 +15,11 @@ public class CartDto {
         this.items = items;
     }
 
-    public int getTotalCost() {
+    public BigDecimal getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(int totalCost) {
+    public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
     }
 }

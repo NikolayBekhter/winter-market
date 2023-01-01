@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.market.core.controllers;
+package ru.geekbrains.winter.market.auth.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.winter.api.AuthRequest;
 import ru.geekbrains.winter.api.AuthResponse;
-import ru.geekbrains.winter.market.core.services.UserService;
-import ru.geekbrains.winter.market.core.utils.JwtTokenUtil;
+import ru.geekbrains.winter.market.auth.services.UserService;
+import ru.geekbrains.winter.market.auth.utils.JwtTokenUtil;
 
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@CrossOrigin("*")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;

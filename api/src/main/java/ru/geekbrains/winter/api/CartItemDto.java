@@ -1,11 +1,13 @@
 package ru.geekbrains.winter.api;
 
+import java.math.BigDecimal;
+
 public class CartItemDto {
     private Long productId;
     private String productTitle;
     private int quantity;
-    private int costPerProduct;
-    private int cost;
+    private BigDecimal costPerProduct;
+    private BigDecimal cost;
 
     public Long getProductId() {
         return productId;
@@ -31,19 +33,19 @@ public class CartItemDto {
         this.quantity = quantity;
     }
 
-    public int getCostPerProduct() {
+    public BigDecimal getCostPerProduct() {
         return costPerProduct;
     }
 
-    public void setCostPerProduct(int costPerProduct) {
+    public void setCostPerProduct(BigDecimal costPerProduct) {
         this.costPerProduct = costPerProduct;
     }
 
-    public int getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 }
