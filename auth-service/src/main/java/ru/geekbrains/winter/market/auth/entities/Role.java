@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.market.core.entities;
+package ru.geekbrains.winter.market.auth.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

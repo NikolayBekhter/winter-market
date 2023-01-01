@@ -1,16 +1,18 @@
 package ru.geekbrains.winter.api;
 
 
+import java.math.BigDecimal;
+
 public class ProductDto {
     private Long id;
     private String title;
-    private int cost;
+    private BigDecimal cost;
     private String categoryTitle;
 
     public ProductDto() {
     }
 
-    public ProductDto(Long id, String title, int cost, String categoryTitle) {
+    public ProductDto(Long id, String title, BigDecimal cost, String categoryTitle) {
         this.id = id;
         this.title = title;
         this.cost = cost;
@@ -33,11 +35,11 @@ public class ProductDto {
         this.title = title;
     }
 
-    public int getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 

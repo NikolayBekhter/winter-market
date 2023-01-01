@@ -6,7 +6,6 @@ import ru.geekbrains.winter.api.CartDto;
 import ru.geekbrains.winter.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.core.entities.Order;
 import ru.geekbrains.winter.market.core.entities.OrderItem;
-import ru.geekbrains.winter.market.core.entities.User;
 import ru.geekbrains.winter.market.core.integrations.CartServiceIntegration;
 import ru.geekbrains.winter.market.core.repositories.OrderRepository;
 
@@ -23,11 +22,11 @@ public class OrderService {
     private  final CartServiceIntegration cartServiceIntegration;
 
     @Transactional
-    public void createOrder(User user) {
+    public void createOrder(String username) {
         CartDto cartDto = cartServiceIntegration.getCurrentCart();
 
         Order order = new Order();
-        order.setUser(user);
+        order.setUsername(username);
         order.setTotalCost(cartDto.getTotalCost());
         orderRepository.save(order);
 
@@ -45,7 +44,7 @@ public class OrderService {
                 }).collect(Collectors.toList());
     }
     //TODO сделать мапинг для Order и OrderItem
-    public List<Order> getOrder(User user) {
-        return orderRepository.findAllById(user.getId());
+    public List<Order> getOrder(String username) {
+        return orderRepository.findAllByUsername(username);
     }
 }

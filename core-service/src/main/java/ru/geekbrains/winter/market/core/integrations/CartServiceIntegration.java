@@ -13,18 +13,6 @@ import ru.geekbrains.winter.api.ResourceNotFoundException;
 public class CartServiceIntegration {
     private final WebClient cartServiceWebClient;
 
-    /*public CartDto getProductById(Long id) {
-        return cartServiceWebClient.get()
-                .uri("api/v1/cart/" + id)
-                .retrieve()
-                .onStatus(
-                        httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
-                        clientResponse -> Mono.error(new ResourceNotFoundException("Товар не найден в продуктовом MS"))
-                        )
-                .bodyToMono(CartDto.class)
-                .block();
-    }*/
-
     public CartDto getCurrentCart() {
         return cartServiceWebClient.get()
                 .uri("api/v1/cart")
