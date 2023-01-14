@@ -22,7 +22,7 @@ public class OrderService {
     private  final CartServiceIntegration cartServiceIntegration;
 
     @Transactional
-    public void createOrder(String username) {
+    public Order createOrder(String username) {
         CartDto cartDto = cartServiceIntegration.getCurrentCart();
 
         Order order = new Order();
@@ -42,6 +42,7 @@ public class OrderService {
                     orderItem.setQuantity(cartItem.getQuantity());
                     return orderItemService.save(orderItem);
                 }).collect(Collectors.toList());
+        return order;
     }
     //TODO сделать мапинг для Order и OrderItem
     public List<Order> getOrder(String username) {
