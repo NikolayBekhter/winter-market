@@ -67,7 +67,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     $scope.showProductInfo = function (productId) {
         $http.get(contextPath + '/products/' + productId)
             .then(function (response) {
-                alert(response.data.title);
+                alert(response.data.title + ' ' + response.data.categoryTitle);
             });
     };
 
@@ -91,8 +91,6 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
                     .then(function (response) {
                         console.log(response.data);
                         $scope.cart = response.data;
-                        let totalCost = response.data.totalCost;
-                        console.log(totalCost + ' items');
                     });
     };
 
@@ -102,6 +100,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
                     $scope.loadCart();
                 });
     };
+
     $scope.deleteFromCart = function (productId) {
             $http.get('http://localhost:5555/cart/api/v1/cart/remove/' + productId)
                 .then(function (response) {
@@ -130,6 +129,13 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         };
 
     $scope.createOrder = function () {
+        if ($scope.cart.totalCost === 0) {
+            alert('Добавьте хатя бы один продукт!');
+            return;
+        } if (!$scope.isUserLoggedIn()) {
+            alert('Необходимо авторизоваться!');
+            return;
+        }
         $http.post('http://localhost:5555/core/api/v1/orders')
             .then(function (response) {
                 console.log(response.data);
@@ -138,9 +144,21 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             });
     };
 
+    $scope.loadOrders = function () {
+        $http.get(contextPath + '/orders')
+            .then(function (response) {
+                console.log(response.data);
+                $scope.order = response.data;
 
+            });
+    };
+
+    $scope.showUser = function () {
+        $localStorage.winterMarketUser.username;
+    };
 
     $scope.loadProducts();
     $scope.loadCart();
+    $scope.loadOrders();
 
 });

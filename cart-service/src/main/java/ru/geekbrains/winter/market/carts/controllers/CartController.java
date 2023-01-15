@@ -1,6 +1,7 @@
 package ru.geekbrains.winter.market.carts.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.winter.api.CartDto;
 import ru.geekbrains.winter.market.carts.converters.CartConverter;
@@ -9,6 +10,7 @@ import ru.geekbrains.winter.market.carts.services.CartService;
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
+@Log4j2
 public class CartController {
     private final CartService cartService;
     private final CartConverter cartConverter;

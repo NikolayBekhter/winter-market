@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.winter.api.OrderDto;
+import ru.geekbrains.winter.market.core.converters.OrderConverter;
 import ru.geekbrains.winter.market.core.entities.Order;
 import ru.geekbrains.winter.market.core.services.OrderService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,17 +18,17 @@ import java.util.List;
 @Log4j2
 public class OrderController {
     private final OrderService orderService;
+    private final OrderConverter orderConverter;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(@RequestHeader String username) {
-        log.info(username);
         orderService.createOrder(username);
-        //TODO формируется заказ из пустой корзины...
     }
 
     @GetMapping
-    public List<Order> getOrder(@RequestHeader String username) {
-        return orderService.getOrder(username);
+    public List<OrderDto> getOrders(@RequestHeader String username) {
+        log.info(orderService.getOrder(username).stream().map(orderConverter::entityToDto).collect(Collectors.toList()));
+        return orderService.getOrder(username).stream().map(orderConverter::entityToDto).collect(Collectors.toList());
     }
 }

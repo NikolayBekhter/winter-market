@@ -22,7 +22,7 @@ public class Category {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
     private List<Product> products;
 
     @CreationTimestamp
