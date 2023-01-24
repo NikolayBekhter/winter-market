@@ -43,11 +43,11 @@ public class Cart {
 
     public void clear() {
         items.clear();
-        totalCost = new BigDecimal("0.00");
+        totalCost = BigDecimal.ZERO;
     }
 
     private void recalculate() {
-        totalCost = new BigDecimal("0.00");
+        totalCost = BigDecimal.ZERO;
         for (CartItem item :
                 items) {
             totalCost = totalCost.add(item.getCost()).setScale(2, RoundingMode.HALF_UP);

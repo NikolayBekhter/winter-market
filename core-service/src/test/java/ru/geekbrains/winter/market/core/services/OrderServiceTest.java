@@ -57,7 +57,7 @@ class OrderServiceTest {
         cartDto.setTotalCost(product.getCost());
         cartDto.setItems(items);
 
-        Mockito.when(cartServiceIntegration.getCurrentCart()).thenReturn(cartDto);
+        Mockito.when(cartServiceIntegration.getCurrentCart(user.getUsername())).thenReturn(cartDto);
 
         Order createdOrder = orderService.createOrder(user.getUsername());
         Assertions.assertNotNull(createdOrder);
