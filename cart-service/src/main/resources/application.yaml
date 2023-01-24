@@ -8,3 +8,5 @@ integrations:
     read-timeout: 10000
     write-timeout: 5000
     connect-timeout: 5000
+cart-service:
+  cart-prefix: winter_cart_

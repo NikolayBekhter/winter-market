@@ -1,0 +1,143 @@
+<div>
+
+    <section class="h-100" style="background-color: #eee;">
+        <div class="container h-100 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-normal mb-0 text-black">Страница авторизации</h3>
+            </div>
+            <div>
+                <form ng-submit="tryToAuth()">
+                    <div class="form-group">
+                        <label for="your_name">Имя</label>
+                        <input type="text" class="form-control" id="your_name" placeholder="Имя" ng-model="user.username">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Пароль</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Пароль" ng-model="user.password">
+                    </div>
+                    <!--        <div class="form-row">-->
+                    <!--            <div class="form-group col-md-6">-->
+                    <!--                <label for="inputEmail">Email</label>-->
+                    <!--                <input type="email" class="form-control" id="inputEmail" placeholder="Email">-->
+                    <!--            </div>-->
+                    <!--            <div class="form-group col-md-6">-->
+                    <!--                <label for="inputPassword">Password</label>-->
+                    <!--                <input type="password" class="form-control" id="inputPassword" placeholder="Password">-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+
+                    <!--        <div class="form-group">-->
+                    <!--            <label for="inputAddress2">Address 2</label>-->
+                    <!--            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">-->
+                    <!--        </div>-->
+                    <!--        <div class="form-row">-->
+                    <!--            <div class="form-group col-md-6">-->
+                    <!--                <label for="inputCity">City</label>-->
+                    <!--                <input type="text" class="form-control" id="inputCity">-->
+                    <!--            </div>-->
+                    <!--            <div class="form-group col-md-4">-->
+                    <!--                <label for="inputState">State</label>-->
+                    <!--                <select id="inputState" class="form-control">-->
+                    <!--                    <option selected>Choose...</option>-->
+                    <!--                    <option>...</option>-->
+                    <!--                </select>-->
+                    <!--            </div>-->
+                    <!--            <div class="form-group col-md-2">-->
+                    <!--                <label for="inputZip">Zip</label>-->
+                    <!--                <input type="text" class="form-control" id="inputZip">-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+                    <!--        <div class="form-group">-->
+                    <!--            <div class="form-check">-->
+                    <!--                <label class="form-check-label">-->
+                    <!--                    <input class="form-check-input" type="checkbox"> Check me out-->
+                    <!--                </label>-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+                    <button type="submit" class="btn btn-primary">Авторизоваться</button>
+                </form>
+                <td></td>
+                <div class="signin-image">
+                    <!--        <figure><img src="regform/images/signin-image.jpg" alt="sing up image"></figure>-->
+                    <a href="#!/registration" class="signup-image-link">У меня нет аккаунта</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!--</div>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" ng-app="auth">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <title>Sign In Form</title>-->
+
+<!--    &lt;!&ndash; Font Icon &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">-->
+
+<!--    &lt;!&ndash; Main css &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="css/style.css">-->
+<!--    <link rel="icon" href="favicon/users.ico" sizes="any">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="main">-->
+<!--    &lt;!&ndash; Sing in  Form &ndash;&gt;-->
+<!--    <section class="sign-in">-->
+<!--        <div class="container" ng-controller="authController">-->
+<!--            <div class="signin-content">-->
+<!--                <div class="signin-image">-->
+<!--                    <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>-->
+<!--                    <a href="registration.html" class="signup-image-link">Create an account</a>-->
+<!--                </div>-->
+
+<!--                <div class="signin-form">-->
+<!--                    <h2 class="form-title">Sign up</h2>-->
+<!--                    <form class="register-form" ng-submit="tryToAuth()">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>-->
+<!--                            <input type="text" name="your_name" id="your_name" placeholder="Your Name" ng-model="user.username"/>-->
+<!--                            &lt;!&ndash;                                <input id="loginField" type="text" class="form-control" ng-model="user.username" aria-describedby="inputGroup-sizing-sm">&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>-->
+<!--                            <input type="password" name="your_pass" id="your_pass" placeholder="Password" ng-model="user.password"/>-->
+<!--                            &lt;!&ndash;                                <input id="passwordField" type="password" class="form-control" ng-model="user.password" aria-describedby="inputGroup-sizing-sm">&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;                            <div class="form-group">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        <div class="form-group form-button">-->
+<!--                            <input type="submit"  class="form-submit" value="Log in"/>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                    <div class="social-login">-->
+<!--                        <span class="social-label">Or login with</span>-->
+<!--                        <ul class="socials">-->
+<!--                            <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>-->
+<!--                            <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>-->
+<!--                            <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>-->
+<!--                            <li><a href="#"><i class="bi bi-whatsapp"></i></a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--</div>-->
+
+<!--&lt;!&ndash; JS &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>-->
+<!--<script src="vendor/jquery/jquery.min.js"></script>-->
+<!--<script src="main.js"></script>-->
+<!--</body>&lt;!&ndash; This templates was made by Colorlib (https://colorlib.com) &ndash;&gt;-->
+<!--</html>-->

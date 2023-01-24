@@ -31,4 +31,9 @@ public class OrderController {
         log.info(orderService.getOrder(username).stream().map(orderConverter::entityToDto).collect(Collectors.toList()));
         return orderService.getOrder(username).stream().map(orderConverter::entityToDto).collect(Collectors.toList());
     }
+
+    @DeleteMapping("/{orderId}")
+    public void deleteOrder(@PathVariable Long orderId) {
+        orderService.deleteOrderById(orderId);
+    }
 }

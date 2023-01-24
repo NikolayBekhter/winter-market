@@ -23,7 +23,7 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(String username) {
-        CartDto cartDto = cartServiceIntegration.getCurrentCart();
+        CartDto cartDto = cartServiceIntegration.getCurrentCart(username);
 
         Order order = new Order();
         order.setUsername(username);
@@ -47,5 +47,9 @@ public class OrderService {
     //TODO сделать мапинг для Order и OrderItem
     public List<Order> getOrder(String username) {
         return orderRepository.findAllByUsername(username);
+    }
+
+    public void deleteOrderById(Long orderId) {
+        orderRepository.deleteById(orderId);
     }
 }

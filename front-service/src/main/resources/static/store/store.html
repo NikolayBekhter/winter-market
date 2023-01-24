@@ -1,0 +1,58 @@
+<div>
+
+    <section class="h-100" style="background-color: #eee;">
+        <div class="container h-100 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-normal mb-0 text-black">Каталог товаров</h3>
+            </div>
+            <div class="card-body p-4">
+                <div>
+                    <form novalidate ng-submit="loadProducts()">
+                        <div class="form-floating input-group-sm">
+                            <input type="text" class="form-control" id="filterTitle" placeholder=""
+                                   ng-model="filter.title_part">
+                            <label for="filterTitle">Название продукта</label>
+                        </div>
+                        <p></p>
+                        <div class="form-floating input-group-sm">
+                            <input type="number" class="form-control" id="filterMinCost" placeholder=""
+                                   ng-model="filter.min_cost">
+                            <label for="filterMinCost">Минимальная цена</label>
+                        </div>
+                        <p></p>
+                        <div class="form-floating input-group-sm">
+                            <input type="number" class="form-control" id="filterMaxCost" placeholder=""
+                                   ng-model="filter.max_cost">
+                            <label for="filterMaxCost">Максимальная цена</label>
+                        </div>
+                        <p></p>
+                        <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Применить
+                        </button>
+                    </form>
+                    <p></p>
+                    <table class="table table-hover" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>ID</td>
+                            <td>Название продукта</td>
+                            <td>Цена</td>
+                            <td>Действие</td>
+                        </tr>
+                        <tbody>
+                        <tr ng-repeat="p in ProductPage">
+                            <td>{{p.id}}</td>
+                            <td>{{p.title}}</td>
+                            <td>{{p.cost}}</td>
+                            <td>
+                                <button class="btn btn-primary" ng-click="showProductInfo(p.id)">Инфо</button>
+                                <!--                <button class="btn btn-danger" ng-click="deleteProduct(p.id)">Удалить</button>-->
+                                <button class="btn btn-success" ng-click="sendToBasket(p.id)">Добавить в корзину
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

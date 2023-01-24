@@ -15,8 +15,6 @@ import ru.geekbrains.winter.market.core.services.ProductService;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 class ProductControllerTest {
@@ -37,7 +35,7 @@ class ProductControllerTest {
         product.setTitle("TestProduct");
         product.setCost(new BigDecimal("10.0"));
         product.setCategory(categoryRepository.findById(1L).orElse(null));
-        product = productRepository.save(product);
+        //product = productRepository.save(product);
 
         ProductDto productDto = productConverter.entityToDto(product);
 
@@ -49,10 +47,10 @@ class ProductControllerTest {
                 .returnResult()
                 .getResponseBody();
 
-        //Assertions.assertEquals(product.getId(), productByHttp.getId());
-        Assertions.assertEquals(product.getTitle(), productByHttp.getTitle());
-        Assertions.assertEquals(product.getCategory().getTitle(), productByHttp.getCategoryTitle());
-        Assertions.assertEquals(product.getCost(), productByHttp.getCost());
+        //Assertions.assertEquals(productDto.getId(), productByHttp.getId());
+        Assertions.assertEquals(productDto.getTitle(), productByHttp.getTitle());
+        Assertions.assertEquals(productDto.getCategoryTitle(), productByHttp.getCategoryTitle());
+        Assertions.assertEquals(productDto.getCost(), productByHttp.getCost());
     }
 
     @Test
