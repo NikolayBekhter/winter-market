@@ -60,4 +60,9 @@ public class CartController {
         return uuid;
     }
 
+    @GetMapping("/{uuid}/merge")
+    public void mergeCarts(@RequestHeader(name = "username") String username, @PathVariable String uuid) {
+        cartService.mergeCarts(uuid, username);
+    }
+
 }

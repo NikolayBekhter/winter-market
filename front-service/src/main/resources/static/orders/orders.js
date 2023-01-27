@@ -4,7 +4,6 @@ angular.module('market').controller('orderController', function ($scope, $http, 
     $scope.loadOrders = function () {
         $http.get(contextPath + 'orders')
             .then(function (response) {
-                console.log(response.data);
                 $scope.order = response.data;
 
             });

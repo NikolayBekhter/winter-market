@@ -38,7 +38,7 @@
                             <td>Действие</td>
                         </tr>
                         <tbody>
-                        <tr ng-repeat="p in ProductPage">
+                        <tr ng-repeat="p in ProductPage.items">
                             <td>{{p.id}}</td>
                             <td>{{p.title}}</td>
                             <td>{{p.cost}}</td>
@@ -51,6 +51,23 @@
                         </tr>
                         </tbody>
                     </table>
+                    <nav aria-label="Page navigation" ng-show="isThereIndex()">
+                        <ul class="pagination">
+                            <li class="page-item" ng-show="ProductPage.page != 0">
+                                <button class="page-link" ng-click="previousPage(ProductPage.page, 0)" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </button>
+                            </li>
+                            <li class="page-item" ng-repeat="pageIndex in pagesList">
+                                <button class="page-link" ng-click="loadProducts(pageIndex)">{{pageIndex}}</button>
+                            </li>
+                            <li class="page-item" ng-show="ProductPage.page != (indexNumber - 1)">
+                                <button class="page-link" ng-click="nextPage(ProductPage.page, 2)" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

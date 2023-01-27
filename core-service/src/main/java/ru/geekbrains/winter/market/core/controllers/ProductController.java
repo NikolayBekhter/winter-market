@@ -3,6 +3,7 @@ package ru.geekbrains.winter.market.core.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.winter.api.PageDto;
 import ru.geekbrains.winter.api.ProductDto;
 import ru.geekbrains.winter.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.core.converters.ProductConverter;
@@ -16,7 +17,7 @@ public class ProductController {
     private final ProductConverter productConverter;
 
     @GetMapping
-    public Page<ProductDto> getProducts(
+    public PageDto<ProductDto> getProducts(
             @RequestParam(name = "p", defaultValue = "1") Integer page,
             @RequestParam(name = "min_cost", required = false) Integer minCost,
             @RequestParam(name = "max_cost", required = false) Integer maxCost,
@@ -25,9 +26,15 @@ public class ProductController {
         if (page < 1) {
             page = 1;
         }
-        return productService.find(minCost, maxCost, titlePart, page).map(
+
+        Page<ProductDto> jpaPage = productService.find(minCost, maxCost, titlePart, page).map(
                 productConverter::entityToDto
         );
+        PageDto<ProductDto> out = new PageDto<>();
+        out.setPage(jpaPage.getNumber());
+        out.setItems(jpaPage.getContent());
+        out.setTotalPages(jpaPage.getTotalPages());
+        return out;
     }
 
     @GetMapping("/{id}")

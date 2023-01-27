@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import ru.geekbrains.winter.market.auth.UserService;
+import ru.geekbrains.winter.market.auth.services.UserService;
 import ru.geekbrains.winter.market.auth.entities.User;
 import ru.geekbrains.winter.market.auth.repositories.UserRepository;
 

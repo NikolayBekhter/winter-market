@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.market.auth;
+package ru.geekbrains.winter.market.auth.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

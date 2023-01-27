@@ -9,13 +9,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.winter.api.AuthRequest;
-import ru.geekbrains.winter.api.AuthResponse;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
-import ru.geekbrains.winter.api.UserDto;
+import ru.geekbrains.winter.api.*;
 import ru.geekbrains.winter.market.auth.converters.UserConverter;
 import ru.geekbrains.winter.market.auth.entities.User;
-import ru.geekbrains.winter.market.auth.UserService;
+import ru.geekbrains.winter.market.auth.services.UserService;
 import ru.geekbrains.winter.market.auth.utils.JwtTokenUtil;
 
 @RestController
@@ -47,6 +44,22 @@ public class AuthController {
         user.setPassword(userDto.getPassword());
         user.setEmail(userDto.getEmail());
         return userConverter.entityToDto(userService.save(user));
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<?> createUser(@RequestBody RegistrationUserDto registrationUserDto) {
+        if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пароли не совпадают"), HttpStatus.BAD_REQUEST);
+        }
+        if (userService.findByUsername(registrationUserDto.getUsername()).isPresent()) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким именем уже существует"), HttpStatus.BAD_REQUEST);
+        }
+
+        User user = new User();
+        user.setEmail(registrationUserDto.getEmail());
+        user.setUsername(registrationUserDto.getUsername());
+        user.setPassword(registrationUserDto.getPassword());
+        return ResponseEntity.ok(userConverter.entityToDto(userService.save(user)));
     }
 
     @GetMapping("/users/{userId}")

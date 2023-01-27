@@ -5,7 +5,6 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     $scope.loadCart = function () {
         $http.get(contextPath + 'cart/' + $localStorage.winterMarketGuestCartId)
             .then(function (response) {
-                console.log(response.data);
                 $scope.cart = response.data;
             });
     };
@@ -40,6 +39,7 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     $scope.createOrder = function () {
         if ($scope.cart.totalCost === 0) {
             alert('Добавьте хатя бы один продукт!');
+            $location.path('/store');
             return;
         } if (!$scope.isUserLoggedIn()) {
             alert('Необходимо авторизоваться!');
@@ -47,7 +47,6 @@ angular.module('market').controller('cartController', function ($scope, $http, $
         }
         $http.post(contextCorePath + 'orders')
             .then(function (response) {
-                console.log(response.data);
                 $scope.clearCart();
                 alert('Ваш заказ создан!');
                 $location.path('/orders');
