@@ -1,7 +1,6 @@
-angular.module('market').controller('authController', function ($scope, $http, $localStorage, $location) {
+angular.module('market').controller('authController', function ($scope, $http, $localStorage, $location, $rootScope) {
 
     $scope.tryToAuth = function () {
-        console.log($scope.user)
         $http.post('http://localhost:5555/auth/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
@@ -11,6 +10,8 @@ angular.module('market').controller('authController', function ($scope, $http, $
                     $scope.user.username = null;
                     $scope.user.password = null;
 
+                    $rootScope.mergeCart();
+
                     $location.path('/');
 
                 }
@@ -18,7 +19,7 @@ angular.module('market').controller('authController', function ($scope, $http, $
     };
 
     $scope.tryToReg = function () {
-        $http.post('http://localhost:5555/auth/users', $scope.new_user)
+        $http.post('http://localhost:5555/auth/registration', $scope.new_user)
             .then(function (response) {
                 alert('Аккаунт успешно создан!')
                 $location.path('/auth');

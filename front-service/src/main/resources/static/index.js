@@ -57,6 +57,7 @@
                     $localStorage.winterMarketGuestCartId = response.data.value;
                 });
         }
+
     }
 })();
 
@@ -81,6 +82,12 @@ angular.module('market').controller('indexController', function ($rootScope, $lo
         } else {
             return false;
         }
+    };
+
+    $rootScope.mergeCart = function () {
+        $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge')
+            .then(function (response) {
+            });
     };
 
     /*$scope.deleteProduct = function (productId) {

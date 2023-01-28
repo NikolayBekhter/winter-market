@@ -18,10 +18,6 @@ public class Cart {
         this.items = new ArrayList<>();
     }
 
-    public List<CartItem> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
     public void add(ProductDto product) {
         for (CartItem item :
                 items) {
@@ -68,5 +64,14 @@ public class Cart {
             }
         }
         recalculate();
+    }
+
+    public void addItem(CartItem cartItem) {
+        ProductDto productDto = new ProductDto();
+        productDto.setId(cartItem.getProductId());
+        productDto.setCost(cartItem.getCost());
+        productDto.setTitle(cartItem.getProductTitle());
+        add(productDto);
+        changeQuantity(productDto, cartItem.getQuantity() - 1);
     }
 }

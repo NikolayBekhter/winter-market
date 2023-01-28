@@ -7,13 +7,15 @@ angular.module('market').controller('storeController', function ($scope, $http, 
             url: contextPath + 'products',
             method: 'GET',
             params: {
+                p: pageIndex,
                 title_part: $scope.filter ? $scope.filter.title_part : null,
                 max_cost: $scope.filter ? $scope.filter.max_cost : null,
                 min_cost: $scope.filter ? $scope.filter.min_cost : null
             }
         }).then(function (response) {
-            console.log(response.data);
-            $scope.ProductPage = response.data.content;
+            $scope.ProductPage = response.data;
+            $scope.indexNumber = $scope.ProductPage.totalPages;
+            $scope.generatePagesList($scope.ProductPage.totalPages);
         });
     };
 
@@ -29,6 +31,33 @@ angular.module('market').controller('storeController', function ($scope, $http, 
             .then(function (response) {
             });
     };
+
+    $scope.generatePagesList = function (totalPages) {
+        $scope.pagesList = [];
+        for (let i = 0; i < totalPages; i++) {
+            $scope.pagesList.push(i + 1);
+        }
+    }
+
+    $scope.isThereIndex = function () {
+        if ($scope.indexNumber > 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $scope.previousPage = function (page, delta) {
+        if ((page + delta) >= 0) {
+            $scope.loadProducts(page + delta);
+        }
+    }
+
+    $scope.nextPage = function (page, delta) {
+        if ((page + delta) <= $scope.indexNumber) {
+            $scope.loadProducts(page + delta);
+        }
+    }
 
     $scope.loadProducts();
 
