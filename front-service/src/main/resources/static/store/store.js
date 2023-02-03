@@ -1,6 +1,8 @@
-angular.module('market').controller('storeController', function ($scope, $http, $localStorage) {
-    const contextPath = 'http://95.165.90.118:2190/core/api/v1/';
-    const contextCartPath = 'http://95.165.90.118:2190/cart/api/v1/';
+angular.module('market').controller('storeController', function ($scope, $http, $localStorage, $rootScope) {
+    const contextPath = 'http://localhost:5555/core/api/v1/';
+    const contextCartPath = 'http://localhost:5555/cart/api/v1/';
+    // const contextPath = 'http://95.165.90.118:2190/core/api/v1/';
+    // const contextCartPath = 'http://95.165.90.118:2190/cart/api/v1/';
 
     $scope.loadProducts = function (pageIndex = 1) {
         $http({

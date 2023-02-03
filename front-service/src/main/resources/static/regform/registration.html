@@ -6,7 +6,7 @@
                 <h3 class="fw-normal mb-0 text-black">Страница регистрации</h3>
             </div>
             <div>
-                <form ng-submit="tryToReg()">
+                <form ng-submit="tryToReg()" id="regForm">
                     <div class="form-group">
                         <label for="your_name">Имя</label>
                         <input type="text" class="form-control" id="your_name" placeholder="Имя" ng-model="new_user.username">
@@ -54,7 +54,7 @@
                     <!--                </label>-->
                     <!--            </div>-->
                     <!--        </div>-->
-                    <button type="submit" class="btn btn-primary">Создать аккаунт</button>
+                    <button type="submit" class="btn btn-primary" id="create">Создать аккаунт</button>
                     <td></td>
                     <div class="signup-image">
                         <!--            <figure><img src="regform/images/signup-image.jpg" alt="sing up image"></figure>-->
