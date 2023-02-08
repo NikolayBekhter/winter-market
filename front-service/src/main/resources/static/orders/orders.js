@@ -1,12 +1,13 @@
 angular.module('market').controller('orderController', function ($scope, $http, $localStorage) {
+    // использовать для локального подключения
     const contextPath = 'http://localhost:5555/core/api/v1/';
+    // использовать для удаленного подключения
     // const contextPath = 'http://95.165.90.118:2190/core/api/v1/';
 
     $scope.loadOrders = function () {
         $http.get(contextPath + 'orders')
             .then(function (response) {
                 $scope.order = response.data;
-
             });
     };
 

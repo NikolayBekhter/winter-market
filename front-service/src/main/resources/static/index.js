@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module('market',  ['ngRoute', 'ngStorage', 'ngNotify'])
+        .module('market',  ['ngRoute', 'ngStorage'])
         .config(config)
         .run(run);
 
@@ -57,47 +57,16 @@
                     $localStorage.winterMarketGuestCartId = response.data.value;
                 });
         }
-
     }
 })();
 
-
-angular.module('market').controller('indexController', function ($rootScope, $location, $scope, $http, $localStorage, $sce) {
-    const contextPath = 'http://95.165.90.118:2190/core/api/v1';
-    const url = 'http://192.168.1.110:8080/realms/master/protocol/openid-connect/auth?client_id=js-client&redirect_uri=http://localhost:3000/callback&response_type=code';
-
+angular.module('market').controller('indexController', function ($rootScope, $location, $scope, $http, $localStorage) {
 
     $rootScope.tryToLogout = function () {
         $scope.clearUser();
         $scope.user = null;
         $location.path('/auth');
     };
-
-    $scope.trustSrc = function(src) {
-        return $sce.trustAsResourceUrl(src);
-    };
-
-    $rootScope.openAuthForm = function () {
-        $http({
-            method: 'GET',
-            url: $scope.trustSrc(url)
-        }).then(function (response) {
-        });
-    };
-
-    // $rootScope.openAuthForm = function () {
-    //     $http({
-    //         url: 'http://192.168.1.110:8080/realms/master/protocol/openid-connect/auth',
-    //         method: 'GET',
-    //         params: {
-    //             client_id: 'js-client',
-    //             redirect_uri: 'http://localhost:5555/front',
-    //             response_type: 'code'
-    //         }
-    //     }).then(function (response) {
-    //         console.log(response)
-    //     });
-    // };
 
     $scope.clearUser = function () {
         delete $localStorage.winterMarketUser;

@@ -9,6 +9,17 @@ public class CartItemDto {
     private BigDecimal costPerProduct;
     private BigDecimal cost;
 
+    public CartItemDto() {
+    }
+
+    public CartItemDto(Long productId, String productTitle, int quantity, BigDecimal costPerProduct, BigDecimal cost) {
+        this.productId = productId;
+        this.productTitle = productTitle;
+        this.quantity = quantity;
+        this.costPerProduct = costPerProduct;
+        this.cost = cost;
+    }
+
     public Long getProductId() {
         return productId;
     }
