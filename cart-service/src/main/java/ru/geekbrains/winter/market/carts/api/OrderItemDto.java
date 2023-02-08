@@ -1,31 +1,33 @@
-package ru.geekbrains.winter.api;
+package ru.geekbrains.winter.market.carts.api;
 
 import java.math.BigDecimal;
 
-public class CartItemDto {
-    private Long productId;
+public class OrderItemDto {
+    private Long id;
     private String productTitle;
+    private Long orderId;
     private int quantity;
     private BigDecimal costPerProduct;
     private BigDecimal cost;
 
-    public CartItemDto() {
+    public OrderItemDto() {
     }
 
-    public CartItemDto(Long productId, String productTitle, int quantity, BigDecimal costPerProduct, BigDecimal cost) {
-        this.productId = productId;
+    public OrderItemDto(Long id, String productTitle, Long orderId, int quantity, BigDecimal costPerProduct, BigDecimal cost) {
+        this.id = id;
         this.productTitle = productTitle;
+        this.orderId = orderId;
         this.quantity = quantity;
         this.costPerProduct = costPerProduct;
         this.cost = cost;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getProductTitle() {
@@ -34,6 +36,14 @@ public class CartItemDto {
 
     public void setProductTitle(String productTitle) {
         this.productTitle = productTitle;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public int getQuantity() {
@@ -58,5 +68,17 @@ public class CartItemDto {
 
     public void setCost(BigDecimal cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItemDto{" +
+                "id=" + id +
+                ", productTitle='" + productTitle + '\'' +
+                ", orderId=" + orderId +
+                ", quantity=" + quantity +
+                ", costPerProduct=" + costPerProduct +
+                ", cost=" + cost +
+                '}';
     }
 }

@@ -22,13 +22,15 @@
                             <tr ng-repeat="c in cart.items">
                                 <td>{{c.productTitle}}</td>
                                 <td>
-                                    <button class="btn btn-primary"
-                                            ng-click="changeQuantity(c.productId, -1)">-
-                                    </button>
-                                    {{c.quantity}}
-                                    <button class="btn btn-primary"
-                                            ng-click="changeQuantity(c.productId, +1)">+
-                                    </button>
+                                    <nobr>
+                                        <button class="btn btn-primary"
+                                                ng-click="changeQuantity(c.productId, -1)">-
+                                        </button>
+                                        {{c.quantity}}
+                                        <button class="btn btn-primary"
+                                                ng-click="changeQuantity(c.productId, +1)">+
+                                        </button>
+                                    </nobr>
                                 </td>
                                 <td>{{c.costPerProduct + ' x ' + c.quantity + ' = ' + c.cost}}</td>
                                 <td>

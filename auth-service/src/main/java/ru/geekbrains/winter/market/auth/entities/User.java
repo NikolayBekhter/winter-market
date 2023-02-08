@@ -22,14 +22,17 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email", unique = true)
-    private String email;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "is_active")
+    private boolean isActive;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

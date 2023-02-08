@@ -9,15 +9,14 @@ public class UserConverter {
 
     //из user в dto
     public UserDto entityToDto(User user){
-        return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getEmail());
-
+        return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getFirstName(), user.isActive());
     }
     //из dto в user
     public User dtoToEntity(UserDto userDto){
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
-        user.setEmail(userDto.getEmail());
+        user.setFirstName(user.getFirstName());
         return user;
     }
 }

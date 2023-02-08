@@ -9,7 +9,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000"
+            allowedOrigins: "*"
             allowedMethods:
               - GET
               - POST
@@ -18,6 +18,14 @@ spring:
 
 
       routes:
+        - id: front-service
+          uri: http://localhost:3000
+          predicates:
+            - Path=/front/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/front
+            - JwtAuthFilter
         - id: core-service
           uri: http://localhost:8189
           predicates:

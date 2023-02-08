@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.api;
+package ru.geekbrains.winter.market.auth.api;
 
 public class UserDto {
     private Long id;

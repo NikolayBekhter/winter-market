@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +25,8 @@ public class AuthController {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
     private final UserConverter userConverter;
+    private final SimpleMailMessage mailMessage = new SimpleMailMessage();
+    private final MailSender mailSender;
 
     @PostMapping("/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest request) {
@@ -37,15 +41,6 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
-    @PostMapping("/users")
-    public UserDto saveUser(@RequestBody UserDto userDto) {
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
-        user.setEmail(userDto.getEmail());
-        return userConverter.entityToDto(userService.save(user));
-    }
-
     @PostMapping("/registration")
     public ResponseEntity<?> createUser(@RequestBody RegistrationUserDto registrationUserDto) {
         if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
@@ -56,15 +51,39 @@ public class AuthController {
         }
 
         User user = new User();
-        user.setEmail(registrationUserDto.getEmail());
+        user.setFirstName(registrationUserDto.getFirstName());
         user.setUsername(registrationUserDto.getUsername());
         user.setPassword(registrationUserDto.getPassword());
-        return ResponseEntity.ok(userConverter.entityToDto(userService.save(user)));
+        userService.save(user);
+        mailMessage.setFrom("nik.noreply.b@mail.ru");
+        mailMessage.setTo(registrationUserDto.getUsername());
+        mailMessage.setSubject("Подтверждение почты.");
+        String link = "http://95.165.90.118:2190/auth/users/set_active/" + registrationUserDto.getUsername();
+        mailMessage.setText(String.format("Чтобы подтвердить электронную почту пройдите по ссылке: '%s'", link));
+        System.out.println(mailMessage);
+        mailSender.send(mailMessage);
+        return ResponseEntity.ok(userConverter.entityToDto(user));
     }
-
+     // "Чтобы подтвердить электронную почту пройдите по ссылке: http://localhost:5555/auth/users/is_active/" + registrationUserDto.getUsername()
     @GetMapping("/users/{userId}")
     public UserDto findById(@PathVariable Long userId) {
         return userConverter.entityToDto(userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Пользователь с id: " + userId + " не найден!")));
     }
+
+    @GetMapping("/users/set_active/{username}")
+    public void setActive (@PathVariable String username) {
+        userService.setActiveForUser(username);
+    }
+
+    @GetMapping("/users/is_active/{username}")
+    public UserDto isActiveForUser (@PathVariable String username) {
+        User user = userService.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Пользователь " + username + " не найден!"));
+//        UserDto userDto = userConverter.entityToDto(user);
+//        System.out.println(userDto);
+        return userConverter.entityToDto(user);
+    }
+
+
 }
