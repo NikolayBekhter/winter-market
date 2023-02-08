@@ -37,15 +37,6 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
-    @PostMapping("/users")
-    public UserDto saveUser(@RequestBody UserDto userDto) {
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
-        user.setEmail(userDto.getEmail());
-        return userConverter.entityToDto(userService.save(user));
-    }
-
     @PostMapping("/registration")
     public ResponseEntity<?> createUser(@RequestBody RegistrationUserDto registrationUserDto) {
         if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
@@ -56,7 +47,7 @@ public class AuthController {
         }
 
         User user = new User();
-        user.setEmail(registrationUserDto.getEmail());
+        user.setFirstName(registrationUserDto.getFirstName());
         user.setUsername(registrationUserDto.getUsername());
         user.setPassword(registrationUserDto.getPassword());
         return ResponseEntity.ok(userConverter.entityToDto(userService.save(user)));

@@ -9,6 +9,12 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: admin
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://192.168.1.110:8080/realms/master
+#          jwk-set-uri: http://192.168.1.110:8080/realms/master/protocol/openid-connect/certs
 
   jpa:
     show-sql: true
@@ -19,10 +25,3 @@ spring:
 jwt:
   secret: 5agwerDFHgp0weg703utjSFJDshbsHHio3njc234rypnc998t7bhn36AZBNGUK34056jvg0359DBGNJDTN4vnt035tn938457v
   lifetime: 300000
-
-#integrations:
-#  cart-service:
-#    url: http://localhost:8190/winter-carts/
-#    read-timeout: 10000
-#    write-timeout: 5000
-#    connect-timeout: 5000

@@ -4,14 +4,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="icon" href="/favicon/index.ico" sizes="any">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/angular.ng-notify/0.6.0/ng-notify.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="icon" href="/front/favicon/index.ico" sizes="any">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/angular.ng-notify/0.6.0/ng-notify.min.js"></script>
 </head>
 
 <body>
@@ -20,20 +22,26 @@
     <div class="container" ng-controller="indexController">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#!/">Главная</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<!--            <a class="navbar-brand" href="#!/">Главная</a>-->
+<!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
+<!--                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--&lt;!&ndash;                <span class="navbar-toggler-icon"></span>&ndash;&gt;-->
+<!--            </button>-->
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display: flex">
+                <ul class="navbar-nav mr-auto" style="flex-direction: row">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#!/store">Каталог товаров<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#!/">Главная</a>
                     </li>
+                    &nbsp;
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/store">Каталог товаров</a>
+                    </li>
+                    &nbsp;
                     <li class="nav-item">
                         <a class="nav-link" href="#!/cart">Корзина</a>
                     </li>
+                    &nbsp;
                     <li class="nav-item" ng-show="isUserLoggedIn()">
                         <a class="nav-link" href="#!/orders">Мои заказы</a>
                     </li>
@@ -81,30 +89,6 @@
         <!-- ... -->
     </div>
 </div>
-<!-- Пустой блок -->
-<!--<div class="push"></div>-->
-
-<!--<div class="footer">-->
-    <!-- Сожержимое футера -->
-    <!-- ... -->
-<!--    <nav aria-label="Page navigation example">-->
-<!--        <ul class="pagination">-->
-<!--            <li class="page-item">-->
-<!--                <a class="page-link" href="#" aria-label="Previous">-->
-<!--                    <span aria-hidden="true">&laquo;</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--            <li class="page-item">-->
-<!--                <a class="page-link" href="#" aria-label="Next">-->
-<!--                    <span aria-hidden="true">&raquo;</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </nav>-->
-<!--</div>-->
 
 </body>
 

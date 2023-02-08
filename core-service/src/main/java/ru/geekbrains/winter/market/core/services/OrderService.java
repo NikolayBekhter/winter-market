@@ -44,7 +44,7 @@ public class OrderService {
                 }).collect(Collectors.toList());
         return order;
     }
-    //TODO сделать мапинг для Order и OrderItem
+
     public List<Order> getOrder(String username) {
         return orderRepository.findAllByUsername(username);
     }
