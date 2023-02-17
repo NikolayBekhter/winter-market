@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.api;
+package ru.geekbrains.winter.market.carts.api;
 
 public class ResourceNotFoundException extends RuntimeException{
     public ResourceNotFoundException(String message) {

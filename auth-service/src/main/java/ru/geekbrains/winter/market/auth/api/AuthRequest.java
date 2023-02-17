@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.api;
+package ru.geekbrains.winter.market.auth.api;
 
 public class AuthRequest {
     private String username;

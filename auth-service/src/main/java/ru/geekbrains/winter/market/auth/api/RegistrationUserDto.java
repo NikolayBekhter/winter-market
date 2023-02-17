@@ -1,28 +1,11 @@
-package ru.geekbrains.winter.api;
+package ru.geekbrains.winter.market.auth.api;
 
-public class UserDto {
-    private Long id;
+public class RegistrationUserDto {
     private String username;
     private String password;
+    private String confirmPassword;
     private String firstName;
-
-    public UserDto() {
-    }
-
-    public UserDto(Long id, String username, String password, String firstName) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String lastName;
 
     public String getUsername() {
         return username;
@@ -40,11 +23,27 @@ public class UserDto {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

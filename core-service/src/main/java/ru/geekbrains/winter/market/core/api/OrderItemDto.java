@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.api;
+package ru.geekbrains.winter.market.core.api;
 
 import java.math.BigDecimal;
 

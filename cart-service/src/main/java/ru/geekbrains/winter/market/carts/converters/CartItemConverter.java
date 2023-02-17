@@ -1,7 +1,7 @@
 package ru.geekbrains.winter.market.carts.converters;
 
 import org.springframework.stereotype.Component;
-import ru.geekbrains.winter.api.CartItemDto;
+import ru.geekbrains.winter.market.carts.api.CartItemDto;
 import ru.geekbrains.winter.market.carts.model.CartItem;
 
 @Component

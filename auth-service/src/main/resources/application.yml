@@ -9,6 +9,20 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: admin
+  mail:
+    protocol: smtps
+    host: smtp.mail.ru
+    port: 465
+    username: nik.noreply.b@mail.ru
+    password: Ea4pkw8Pgsip7dbFk4Gz
+
+#    mail.host=smtp.mail.ru
+#    mail.port=465
+#    mail.username=uhb0f84h@mail.ru
+#    mail.password=dhg9j49h0gnj904h
+#    mail.from=uhb0f84h@mail.ru
+#    mail.protocol=smtps
+#    mail.smtps.auth=true
 #  security:
 #    oauth2:
 #      resourceserver:
@@ -24,4 +38,4 @@ spring:
 
 jwt:
   secret: 5agwerDFHgp0weg703utjSFJDshbsHHio3njc234rypnc998t7bhn36AZBNGUK34056jvg0359DBGNJDTN4vnt035tn938457v
-  lifetime: 300000
+  lifetime: 36000000

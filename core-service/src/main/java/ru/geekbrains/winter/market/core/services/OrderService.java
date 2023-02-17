@@ -2,8 +2,8 @@ package ru.geekbrains.winter.market.core.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.winter.api.CartDto;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
+import ru.geekbrains.winter.market.core.api.CartDto;
+import ru.geekbrains.winter.market.core.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.core.entities.Order;
 import ru.geekbrains.winter.market.core.entities.OrderItem;
 import ru.geekbrains.winter.market.core.integrations.CartServiceIntegration;

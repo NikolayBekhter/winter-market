@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.api;
+package ru.geekbrains.winter.market.core.api;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;

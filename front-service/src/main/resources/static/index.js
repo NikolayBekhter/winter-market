@@ -52,7 +52,7 @@
         }
 
         if (!$localStorage.winterMarketGuestCartId) {
-            $http.get('http://localhost:5555/cart/api/v1/cart/generate_uuid'/*'http://95.165.90.118:2190/cart/api/v1/cart/generate_uuid'*/)
+            $http.get(/*'http://localhost:5555/cart/api/v1/cart/generate_uuid'*/'http://95.165.90.118:2190/cart/api/v1/cart/generate_uuid')
                 .then(function successCallback(response) {
                     $localStorage.winterMarketGuestCartId = response.data.value;
                 });
@@ -82,7 +82,7 @@ angular.module('market').controller('indexController', function ($rootScope, $lo
     };
 
     $rootScope.mergeCart = function () {
-        $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge' /*'http://95.165.90.118:2190/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge'*/)
+        $http.get(/*'http://localhost:5555/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge'*/ 'http://95.165.90.118:2190/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge')
             .then(function (response) {
             });
     };

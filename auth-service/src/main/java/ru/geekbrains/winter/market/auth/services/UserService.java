@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.geekbrains.winter.market.auth.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.auth.entities.Role;
 import ru.geekbrains.winter.market.auth.entities.User;
 import ru.geekbrains.winter.market.auth.repositories.UserRepository;
@@ -32,8 +33,10 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found.", username)));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        User user = findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found.", username)));
+            return new org.springframework.security.core.userdetails
+                    .User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
@@ -43,10 +46,18 @@ public class UserService implements UserDetailsService {
     public User save(User user) {
         user.setRoles(Collections.singleton(roleService.findRoleById(1L)));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(false);
         return userRepository.save(user);
     }
 
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    public void setActiveForUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Пользователь " + username + " не найден!"));
+        user.setActive(true);
+        userRepository.save(user);
     }
 }

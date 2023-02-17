@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.winter.api.OrderDto;
+import ru.geekbrains.winter.market.core.api.OrderDto;
 import ru.geekbrains.winter.market.core.converters.OrderConverter;
-import ru.geekbrains.winter.market.core.entities.Order;
 import ru.geekbrains.winter.market.core.services.OrderService;
 
 import java.util.List;

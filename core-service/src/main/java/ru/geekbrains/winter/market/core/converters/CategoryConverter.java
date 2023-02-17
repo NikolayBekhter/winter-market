@@ -2,7 +2,7 @@ package ru.geekbrains.winter.market.core.converters;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.geekbrains.winter.api.CategoryDto;
+import ru.geekbrains.winter.market.core.api.CategoryDto;
 import ru.geekbrains.winter.market.core.entities.Category;
 
 import java.util.stream.Collectors;
