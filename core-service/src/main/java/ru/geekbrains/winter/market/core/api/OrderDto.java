@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.market.carts.api;
+package ru.geekbrains.winter.market.core.api;
 
 import java.math.BigDecimal;
 import java.util.List;

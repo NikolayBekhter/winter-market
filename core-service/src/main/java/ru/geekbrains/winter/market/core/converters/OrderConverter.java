@@ -2,7 +2,7 @@ package ru.geekbrains.winter.market.core.converters;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.geekbrains.winter.api.OrderDto;
+import ru.geekbrains.winter.market.core.api.OrderDto;
 import ru.geekbrains.winter.market.core.entities.Order;
 
 import java.time.LocalDateTime;

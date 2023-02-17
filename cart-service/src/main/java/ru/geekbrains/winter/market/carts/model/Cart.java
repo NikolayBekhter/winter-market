@@ -1,12 +1,11 @@
 package ru.geekbrains.winter.market.carts.model;
 
 import lombok.Data;
-import ru.geekbrains.winter.api.ProductDto;
+import ru.geekbrains.winter.market.carts.api.ProductDto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Data

@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import ru.geekbrains.winter.api.CartDto;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
+import ru.geekbrains.winter.market.core.api.CartDto;
+import ru.geekbrains.winter.market.core.api.ResourceNotFoundException;
 
 @Component
 @RequiredArgsConstructor

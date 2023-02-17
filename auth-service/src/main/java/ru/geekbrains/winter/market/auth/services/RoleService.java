@@ -2,7 +2,7 @@ package ru.geekbrains.winter.market.auth.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
+import ru.geekbrains.winter.market.auth.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.auth.entities.Role;
 import ru.geekbrains.winter.market.auth.repositories.RoleRepository;
 

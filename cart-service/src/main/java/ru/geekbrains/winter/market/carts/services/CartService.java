@@ -5,9 +5,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.winter.api.ProductDto;
 import ru.geekbrains.winter.market.carts.integrations.ProductServiceIntegration;
 import ru.geekbrains.winter.market.carts.model.Cart;
+import ru.geekbrains.winter.market.carts.api.ProductDto;
 
 import java.util.function.Consumer;
 

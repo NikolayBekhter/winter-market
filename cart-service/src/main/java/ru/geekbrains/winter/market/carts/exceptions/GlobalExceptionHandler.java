@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import ru.geekbrains.winter.api.AppError;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
+import ru.geekbrains.winter.market.carts.api.AppError;
+import ru.geekbrains.winter.market.carts.api.ResourceNotFoundException;
 
 @ControllerAdvice
 @Slf4j

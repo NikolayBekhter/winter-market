@@ -69,18 +69,12 @@
             <version>1.17.6</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>ru.geekbrains.winter.market</groupId>
-            <artifactId>api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>ru.geekbrains.winter.market</groupId>
-            <artifactId>cart-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>ru.geekbrains.winter.market</groupId>-->
+<!--            <artifactId>cart-service</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>

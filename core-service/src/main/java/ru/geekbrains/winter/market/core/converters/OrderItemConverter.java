@@ -1,7 +1,7 @@
 package ru.geekbrains.winter.market.core.converters;
 
 import org.springframework.stereotype.Component;
-import ru.geekbrains.winter.api.OrderItemDto;
+import ru.geekbrains.winter.market.core.api.OrderItemDto;
 import ru.geekbrains.winter.market.core.entities.OrderItem;
 
 @Component

@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.winter.api.AppError;
-import ru.geekbrains.winter.api.PageDto;
-import ru.geekbrains.winter.api.ProductDto;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
+import ru.geekbrains.winter.market.core.api.*;
 import ru.geekbrains.winter.market.core.converters.ProductConverter;
 import ru.geekbrains.winter.market.core.services.ProductService;
 

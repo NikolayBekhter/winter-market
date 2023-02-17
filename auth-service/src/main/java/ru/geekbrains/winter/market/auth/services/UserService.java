@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.geekbrains.winter.api.ResourceNotFoundException;
+import ru.geekbrains.winter.market.auth.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.auth.entities.Role;
 import ru.geekbrains.winter.market.auth.entities.User;
 import ru.geekbrains.winter.market.auth.repositories.UserRepository;

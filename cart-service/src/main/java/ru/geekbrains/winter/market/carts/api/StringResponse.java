@@ -1,4 +1,4 @@
-package ru.geekbrains.winter.market.auth.api;
+package ru.geekbrains.winter.market.carts.api;
 
 public class StringResponse {
     private String value;
