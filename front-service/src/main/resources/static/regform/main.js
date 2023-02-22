@@ -2,7 +2,7 @@ angular.module('market').controller('authController', function ($scope, $http, $
     // использовать для локального подключения
     // const contextPath = 'http://localhost:5555/auth/';
     // использовать для удаленного подключения
-    const contextPath = 'http://95.165.90.118:2190/auth/';
+    const contextPath = 'http://95.165.90.118:443/auth/';
 
     $scope.tryToAuth = function () {
         $scope.isActiveUser($scope.user.username);

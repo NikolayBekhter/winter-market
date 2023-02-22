@@ -2,7 +2,6 @@ package ru.geekbrains.winter.market.auth.api;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
