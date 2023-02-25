@@ -58,7 +58,7 @@ public class AuthController {
         mailMessage.setFrom("nik.noreply.b@mail.ru");
         mailMessage.setTo(registrationUserDto.getUsername());
         mailMessage.setSubject("Подтверждение почты.");
-        String link = "http://95.165.90.118:2190/auth/users/set_active/" + registrationUserDto.getUsername();
+        String link = "http://95.165.90.118:443/auth/users/set_active/" + registrationUserDto.getUsername();
         mailMessage.setText(String.format("Чтобы подтвердить электронную почту пройдите по ссылке: '%s'", link));
         System.out.println(mailMessage);
         mailSender.send(mailMessage);

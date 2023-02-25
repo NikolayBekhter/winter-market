@@ -1,6 +1,7 @@
 package ru.geekbrains.winter.market.auth.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.winter.market.auth.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.auth.entities.Role;
 import ru.geekbrains.winter.market.auth.entities.User;
+import ru.geekbrains.winter.market.auth.observer.NotifyUsers;
+import ru.geekbrains.winter.market.auth.observer.Subscriber;
 import ru.geekbrains.winter.market.auth.repositories.UserRepository;
 
 import java.util.Collection;
@@ -25,9 +28,11 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RoleService roleService;
+    private final NotifyUsers notifyUsers;
+    private final Subscriber subscriber;
 
     public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsernameIgnoreCase(username);
     }
 
     @Override
@@ -47,6 +52,7 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(roleService.findRoleById(1L)));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(false);
+        notifyUsers.addObserver(new Subscriber(user.getUsername()));
         return userRepository.save(user);
     }
 
@@ -55,7 +61,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void setActiveForUser(String username) {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Пользователь " + username + " не найден!"));
         user.setActive(true);
         userRepository.save(user);
