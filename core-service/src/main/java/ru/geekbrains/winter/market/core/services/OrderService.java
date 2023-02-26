@@ -33,9 +33,7 @@ public class OrderService {
         List<OrderItem> orderItems = cartDto.getItems().stream()
                 .map(cartItem -> {
                     OrderItem orderItem = new OrderItem();
-                    orderItem.setProduct(productService.findProductById(cartItem.getProductId())
-                            .orElseThrow(() -> new ResourceNotFoundException("Не удается добавить продукт с id: " + cartItem.getProductId()
-                            + " в заказ. Продукт не найден.")));
+                    orderItem.setProduct(productService.findProductById(cartItem.getProductId()));
                     orderItem.setOrder(order);
                     orderItem.setCost(cartItem.getCost());
                     orderItem.setCostPerProduct(cartItem.getCostPerProduct());

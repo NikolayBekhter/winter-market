@@ -67,8 +67,7 @@ public class ProductController {
     )
     @GetMapping("/{id}")
     public ProductDto getProduct(@PathVariable @Parameter(description = "Идентификатор продукта", required = true) Long id) {
-        return productConverter.entityToDto(
-                productService.findProductById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id)));
+        return productConverter.entityToDto(productService.findProductById(id));
     }
 
     @DeleteMapping("/{id}")
