@@ -14,7 +14,7 @@ spring:
     host: smtp.mail.ru
     port: 465
     username: nik.noreply.b@mail.ru
-    password: Ea4pkw8Pgsip7dbFk4Gz
+    password: 29ffGaF9btVHgBeAeGgx
 
 #  security:
 #    oauth2:
