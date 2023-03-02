@@ -30,6 +30,10 @@
                 templateUrl: 'store/store.html',
                 controller: 'storeController'
             })
+            .when('/admin', {
+                templateUrl: 'admin/admin.html',
+                controller: 'adminController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -52,7 +56,7 @@
         }
 
         if (!$localStorage.winterMarketGuestCartId) {
-            $http.get(/*'http://localhost:5555/cart/api/v1/cart/generate_uuid'*/'http://95.165.90.118:443/cart/api/v1/cart/generate_uuid')
+            $http.get('http://localhost:5555/cart/api/v1/cart/generate_uuid'/*'http://95.165.90.118:443/cart/api/v1/cart/generate_uuid'*/)
                 .then(function successCallback(response) {
                     $localStorage.winterMarketGuestCartId = response.data.value;
                 });
@@ -61,6 +65,28 @@
 })();
 
 angular.module('market').controller('indexController', function ($rootScope, $location, $scope, $http, $localStorage) {
+    // использовать для локального подключения
+    const contextPath = 'http://localhost:5555/auth/api/v1/';
+    // использовать для удаленного подключения
+    // const contextPath = 'http://95.165.90.118:443/auth/api/v1';
+
+    $rootScope.showControl = function () {
+        if ($localStorage.winterMarketUser && $localStorage.roleIndex >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $rootScope.isRoleAdmin = function () {
+        console.log("here")
+        $http.get(contextPath + 'users/get_roles/' + $localStorage.winterMarketUser.username)
+            .then(function (response) {
+                let roles = response.data;
+                $rootScope.roleIndex = roles.findIndex(item => item.name === 'ROLE_ADMIN');
+                console.log($rootScope.roleIndex);
+            })
+    };
 
     $rootScope.tryToLogout = function () {
         $scope.clearUser();
@@ -82,26 +108,19 @@ angular.module('market').controller('indexController', function ($rootScope, $lo
     };
 
     $rootScope.mergeCart = function () {
-        $http.get(/*'http://localhost:5555/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge'*/ 'http://95.165.90.118:443/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge')
+        $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge' /*'http://95.165.90.118:443/cart/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/merge'*/)
             .then(function (response) {
             });
     };
 
-    /*$scope.deleteProduct = function (productId) {
-        $http.delete(contextPath + '/products/' + productId)
+    $rootScope.isActiveUser = function (username) {
+        console.log("isActiveUser")
+        $http.get(contextPath + 'users/is_active/' + username)
             .then(function (response) {
-                $scope.loadProducts();
-            });
+                //console.log(response.data.active);
+                $rootScope.isActive = response.data;
+                console.log($rootScope.isActive.active)
+            })
     };
-
-    $scope.updateProduct = function () {
-            $http.post(contextPath + '/products', $scope.update_product)
-                .then(function (response) {
-                    console.log(response.data);
-                    $scope.loadProducts();
-                });
-        };
-*/
-
 
 });

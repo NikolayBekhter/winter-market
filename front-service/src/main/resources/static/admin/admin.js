@@ -1,12 +1,35 @@
-angular.module('market').controller('storeController', function ($scope, $http, $localStorage) {
+angular.module('market').controller('adminController', function ($scope, $http, $localStorage) {
     // использовать для локального подключения
-    const contextPath = 'http://localhost:5555/core/api/v1/';
-    const contextCartPath = 'http://localhost:5555/cart/api/v1/';
+    const contextPathCore = 'http://localhost:5555/core/api/v1/';
+    const contextPathAuth = 'http://localhost:5555/auth/api/v1/';
     // использовать для удаленного подключения
-    // const contextPath = 'http://95.165.90.118:443/core/api/v1/';
-    // const contextCartPath = 'http://95.165.90.118:443/cart/api/v1/';
+    // const contextPathCore = 'http://95.165.90.118:443/core/api/v1/';
+    // const contextPathAuth = 'http://95.165.90.118:443/auth/api/v1/';
 
-    $scope.loadProducts = function (pageIndex = 1) {
+    /*$scope.deleteProduct = function (productId) {
+        $http.delete(contextPath + 'products/' + productId)
+            .then(function (response) {
+                alert("Продукт удалён!");
+            });
+    };*/
+
+    $scope.setRole = function () {
+        console.log($scope.user)
+        $http.post(contextPathAuth + 'users/set_role', $scope.user)
+            .then(function successCallback(response) {
+                console.log(response.data);
+                alert('Роль успешно добавлена!')
+            });
+    };
+
+    $scope.saveOrUpdateProduct = function () {
+            $http.post(contextPathCore + 'products', $scope.save_or_update_product)
+                .then(function (response) {
+                    alert("Успех!");
+                });
+        };
+
+    /*$scope.loadProducts = function (pageIndex = 1) {
         $http({
             url: contextPath + 'products',
             method: 'GET',
@@ -63,6 +86,6 @@ angular.module('market').controller('storeController', function ($scope, $http, 
         }
     }
 
-    $scope.loadProducts();
+    $scope.loadProducts();*/
 
 });
