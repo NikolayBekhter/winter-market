@@ -18,8 +18,8 @@ public class MyMailSender {
         mailMessage.setFrom("nik.noreply.b@mail.ru");
         mailMessage.setTo(email);
         mailMessage.setSubject("Подтверждение почты.");
-        String link = "http://localhost:5555/auth/api/v1/users/set_active/" + email;
-//        String link = "http://95.165.90.118:443/auth/api/v1/users/set_active/" + email;
+//        String link = "http://localhost:5555/auth/api/v1/users/set_active/" + email;
+        String link = "http://95.165.90.118:443/auth/api/v1/users/set_active/" + email;
         mailMessage.setText(String.format("Чтобы подтвердить электронную почту пройдите по ссылке: '%s'", link));
         mailSender.send(mailMessage);
     }

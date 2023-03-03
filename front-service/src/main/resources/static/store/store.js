@@ -1,10 +1,10 @@
 angular.module('market').controller('storeController', function ($scope, $http, $localStorage) {
     // использовать для локального подключения
-    const contextPath = 'http://localhost:5555/core/api/v1/';
-    const contextCartPath = 'http://localhost:5555/cart/api/v1/';
+    // const contextPath = 'http://localhost:5555/core/api/v1/';
+    // const contextCartPath = 'http://localhost:5555/cart/api/v1/';
     // использовать для удаленного подключения
-    // const contextPath = 'http://95.165.90.118:443/core/api/v1/';
-    // const contextCartPath = 'http://95.165.90.118:443/cart/api/v1/';
+    const contextPath = 'http://95.165.90.118:443/core/api/v1/';
+    const contextCartPath = 'http://95.165.90.118:443/cart/api/v1/';
 
     $scope.loadProducts = function (pageIndex = 1) {
         $http({
