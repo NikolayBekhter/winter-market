@@ -16,6 +16,7 @@ import ru.geekbrains.winter.market.auth.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,8 @@ public class UserService implements UserDetailsService {
     private final RoleService roleService;
 
     public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        System.out.println(userRepository.findByUsernameIgnoreCase(username));
+        return userRepository.findByUsernameIgnoreCase(username);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User save(User user) {
-        user.setRoles(Collections.singleton(roleService.findRoleById(1L)));
+        user.setRoles(Collections.singleton(roleService.findRoleByName("ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(false);
         return userRepository.save(user);
@@ -55,9 +57,22 @@ public class UserService implements UserDetailsService {
     }
 
     public void setActiveForUser(String username) {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Пользователь " + username + " не найден!"));
         user.setActive(true);
         userRepository.save(user);
     }
+
+    public List<Role> getUserRoles(String username) {
+        User user = userRepository.findByUsernameIgnoreCase(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found.", username)));
+        return user.getRoles().stream().toList();
+    }
+
+    public User setRole(String username, String role) {
+        User user = userRepository.findByUsernameIgnoreCase(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Пользователь с nickname: " + username + " не найден!"));
+        user.getRoles().add(roleService.findRoleByName(role));
+        return userRepository.save(user);
+    }
+
 }

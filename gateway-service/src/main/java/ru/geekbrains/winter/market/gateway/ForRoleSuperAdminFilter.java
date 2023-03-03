@@ -1,7 +1,6 @@
 package ru.geekbrains.winter.market.gateway;
 
 import io.jsonwebtoken.Claims;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -12,13 +11,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Component
-@Log4j2
-public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
+public class ForRoleSuperAdminFilter extends AbstractGatewayFilterFactory<ForRoleSuperAdminFilter.Config> {
+
     @Autowired
     private JwtUtil jwtUtil;
 
-    public JwtAuthFilter() {
+    public ForRoleSuperAdminFilter() {
         super(Config.class);
     }
 
@@ -26,23 +27,17 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-            if (request.getHeaders().containsKey("username")) {
-                return this.onError(exchange, "Invalid header username", HttpStatus.BAD_REQUEST);
-            }
-
-            if (!isAuthMissing(request)) {
-                final String token = getAuthHeader(request);
-                if (jwtUtil.isInvalid(token)) {
-                    return this.onError(exchange, "Authorisation header is invalid", HttpStatus.UNAUTHORIZED);
+            final String token = getAuthHeader(request);
+            for (String role : getRoles(token)) {
+                if (role.equals("ROLE_SUPERADMIN")) {
+                    return chain.filter(exchange);
                 }
-                populateRequestWithHeaders(exchange, token);
             }
-            return chain.filter(exchange);
+            return this.onError(exchange, "Не достаточно прав!", HttpStatus.FORBIDDEN);
         };
     }
 
-    public static class Config {
-    }
+    public static class Config {}
 
     private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) {
         ServerHttpResponse response = exchange.getResponse();
@@ -54,21 +49,9 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
         return request.getHeaders().getOrEmpty("Authorization").get(0).substring(7);
     }
 
-    private boolean isAuthMissing(ServerHttpRequest request) {
-        if (!request.getHeaders().containsKey("Authorization")) {
-            return true;
-        }
-        if (!request.getHeaders().getOrEmpty("Authorization").get(0).startsWith("Bearer ")) {
-            return true;
-        }
-        return false;
+    private List<String> getRoles(String token) {
+        Claims claims = jwtUtil.getAllClaimsFromToken(token);
+        return (List) claims.get("roles");
     }
 
-    private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
-        Claims claims = jwtUtil.getAllClaimsFromToken(token);
-        exchange.getRequest().mutate()
-                .header("username", claims.getSubject())
-                .header("role", String.valueOf(claims.get("roles")))
-                .build();
-    }
 }

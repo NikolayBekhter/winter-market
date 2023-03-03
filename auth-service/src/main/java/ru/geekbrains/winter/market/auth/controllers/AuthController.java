@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,20 +11,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.winter.market.auth.api.*;
 import ru.geekbrains.winter.market.auth.converters.UserConverter;
+import ru.geekbrains.winter.market.auth.entities.Role;
 import ru.geekbrains.winter.market.auth.entities.User;
+import ru.geekbrains.winter.market.auth.mail.MyMailSender;
 import ru.geekbrains.winter.market.auth.services.UserService;
 import ru.geekbrains.winter.market.auth.utils.JwtTokenUtil;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @Log4j2
+@RequestMapping("/api/v1")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
     private final UserConverter userConverter;
-    private final SimpleMailMessage mailMessage = new SimpleMailMessage();
-    private final MailSender mailSender;
+    private final MyMailSender myMailSender;
 
     @PostMapping("/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest request) {
@@ -55,16 +57,10 @@ public class AuthController {
         user.setUsername(registrationUserDto.getUsername());
         user.setPassword(registrationUserDto.getPassword());
         userService.save(user);
-        mailMessage.setFrom("nik.noreply.b@mail.ru");
-        mailMessage.setTo(registrationUserDto.getUsername());
-        mailMessage.setSubject("Подтверждение почты.");
-        String link = "http://95.165.90.118:2190/auth/users/set_active/" + registrationUserDto.getUsername();
-        mailMessage.setText(String.format("Чтобы подтвердить электронную почту пройдите по ссылке: '%s'", link));
-        System.out.println(mailMessage);
-        mailSender.send(mailMessage);
+        myMailSender.regConfirm(registrationUserDto.getUsername());
         return ResponseEntity.ok(userConverter.entityToDto(user));
     }
-     // "Чтобы подтвердить электронную почту пройдите по ссылке: http://localhost:5555/auth/users/is_active/" + registrationUserDto.getUsername()
+
     @GetMapping("/users/{userId}")
     public UserDto findById(@PathVariable Long userId) {
         return userConverter.entityToDto(userService.findById(userId)
@@ -80,10 +76,17 @@ public class AuthController {
     public UserDto isActiveForUser (@PathVariable String username) {
         User user = userService.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Пользователь " + username + " не найден!"));
-//        UserDto userDto = userConverter.entityToDto(user);
-//        System.out.println(userDto);
         return userConverter.entityToDto(user);
     }
 
+    @PostMapping("/users/set_role")
+    public UserDto setRole(@RequestBody RoleRequest roleRequest) {
+        return userConverter.entityToDto(userService.setRole(roleRequest.getUsername(), roleRequest.getRole()));
+    }
+
+    @GetMapping("/users/get_roles/{username}")
+    public List<Role> getRoles(@PathVariable String username) {
+        return userService.getUserRoles(username);
+    }
 
 }

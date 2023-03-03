@@ -1,10 +1,10 @@
-angular.module('market').controller('cartController', function ($scope, $http, $location, $localStorage) {
+angular.module('market').controller('cartController', function ($scope, $http, $location, $localStorage, $rootScope) {
     // использовать для локального подключения
-    // const contextPath = 'http://localhost:5555/cart/api/v1/';
-    // const contextCorePath = 'http://localhost:5555/core/api/v1/';
+    const contextPath = 'http://localhost:5555/cart/api/v1/';
+    const contextCorePath = 'http://localhost:5555/core/api/v1/';
     // использовать для удаленного подключения
-    const contextPath = 'http://95.165.90.118:2190/cart/api/v1/';
-    const contextCorePath = 'http://95.165.90.118:2190/core/api/v1/';
+    // const contextPath = 'http://95.165.90.118:443/cart/api/v1/';
+    // const contextCorePath = 'http://95.165.90.118:443/core/api/v1/';
 
     $scope.loadCart = function () {
         $http.get(contextPath + 'cart/' + $localStorage.winterMarketGuestCartId)
@@ -42,12 +42,17 @@ angular.module('market').controller('cartController', function ($scope, $http, $
 
     $scope.createOrder = function () {
         if ($scope.cart.totalCost === 0) {
-            alert('Добавьте хатя бы один продукт!');
+            alert('Добавьте хотя бы один товар!');
             $location.path('/store');
             return;
         } if (!$scope.isUserLoggedIn()) {
             alert('Необходимо авторизоваться!');
             $location.path('/auth');
+            return;
+        } if (!$rootScope.isActive.active) {
+            alert('Ваша учетная запись не подтверждена!!! Чтобы продолжить, пройдите на электронной почте по ссылке.');
+            $rootScope.isActiveUser($localStorage.winterMarketUser.username);
+            return;
         }
         $http.post(contextCorePath + 'orders')
             .then(function (response) {

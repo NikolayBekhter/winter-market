@@ -20,13 +20,7 @@
 
 <div>
     <div class="container" ng-controller="indexController">
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<!--            <a class="navbar-brand" href="#!/">Главная</a>-->
-<!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
-<!--                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--&lt;!&ndash;                <span class="navbar-toggler-icon"></span>&ndash;&gt;-->
-<!--            </button>-->
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display: flex">
                 <ul class="navbar-nav mr-auto" style="flex-direction: row">
@@ -45,9 +39,9 @@
                     <li class="nav-item" ng-show="isUserLoggedIn()">
                         <a class="nav-link" href="#!/orders">Мои заказы</a>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link disabled" href="#">Disabled</a>-->
-<!--                    </li>-->
+                    <li class="nav-item" ng-show="showControl()">
+                        <a class="nav-link disabled" href="#!/admin">Управление</a>
+                    </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <ul class="nav justify-content-end">
@@ -62,21 +56,6 @@
             </div>
         </nav>
 
-
-        <!--<h3>Добавить продукт</h3>
-        <form novalidate ng-submit="updateProduct()">
-            <input class="form-control" type="number" placeholder="ID" ng-model="update_product.id">
-            <p></p>
-            <input class="form-control" type="text" placeholder="Название продукта" ng-model="update_product.title">
-            <p></p>
-            <input class="form-control" type="number" placeholder="Цена" ng-model="update_product.cost">
-            <p></p>
-            <button type="submit" class="btn btn-primary">Сохранить продукт</button>
-        </form>
-        <form>
-            <a href="/users/users.html">To users</a>
-        </form>-->
-
         <ng-view></ng-view>
 
         <script src="index.js"></script>
@@ -85,8 +64,8 @@
         <script src="regform/main.js"></script>
         <script src="store/store.js"></script>
         <script src="welcome/welcome.js"></script>
-        <!-- Основное содержимое страницы (кроме футера) -->
-        <!-- ... -->
+        <script src="admin/admin.js"></script>
+
     </div>
 </div>
 

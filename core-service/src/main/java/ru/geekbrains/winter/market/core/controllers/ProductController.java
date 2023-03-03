@@ -67,8 +67,7 @@ public class ProductController {
     )
     @GetMapping("/{id}")
     public ProductDto getProduct(@PathVariable @Parameter(description = "Идентификатор продукта", required = true) Long id) {
-        return productConverter.entityToDto(
-                productService.findProductById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id)));
+        return productConverter.entityToDto(productService.findProductById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -85,7 +84,7 @@ public class ProductController {
                     )
             }
     )
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto createNewProduct(@RequestBody ProductDto productDto) {
         return productConverter.entityToDto(productService.createNewProduct(productDto));
