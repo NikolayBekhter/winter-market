@@ -26,6 +26,25 @@ spring:
             - StripPrefix=1
             - PrefixPath=/front
             - JwtAuthFilter
+
+        - id: core-service
+          uri: http://localhost:8189
+          predicates:
+            - Path=/core/api/v1/products/create
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/winter-market-core
+            - JwtAuthFilter
+            - NotForRoleUserFilter
+        - id: core-service
+          uri: http://localhost:8189
+          predicates:
+            - Path=/core/api/v1/orders/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/winter-market-core
+            - JwtAuthFilter
+            - NotForGuestsFilter
         - id: core-service
           uri: http://localhost:8189
           predicates:
@@ -34,15 +53,7 @@ spring:
             - StripPrefix=1
             - PrefixPath=/winter-market-core
             - JwtAuthFilter
-        - id: core-service
-          uri: http://localhost:8189
-          predicates:
-            - Path=/core/**
-          filters:
-            - StripPrefix=1
-            - PrefixPath=/winter-market-core/api/v1/orders
-            - JwtAuthFilter
-            - NotForGuestsFilter
+
         - id: cart-service
           uri: http://localhost:8190
           predicates:
@@ -51,6 +62,16 @@ spring:
             - StripPrefix=1
             - PrefixPath=/winter-market-carts
             - JwtAuthFilter
+
+        - id: auth-service
+          uri: http://localhost:8188
+          predicates:
+            - Path=/auth/api/v1/users/set_role
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/winter-market-auth
+            - JwtAuthFilter
+            - ForRoleSuperAdminFilter
         - id: auth-service
           uri: http://localhost:8188
           predicates:

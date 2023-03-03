@@ -23,7 +23,7 @@ angular.module('market').controller('adminController', function ($scope, $http, 
     };
 
     $scope.saveOrUpdateProduct = function () {
-            $http.post(contextPathCore + 'products', $scope.save_or_update_product)
+            $http.post(contextPathCore + 'products/create', $scope.save_or_update_product)
                 .then(function (response) {
                     alert("Успех!");
                 });

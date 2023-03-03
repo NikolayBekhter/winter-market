@@ -26,8 +26,6 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RoleService roleService;
-   // private final NotifyUsers notifyUsers;
-    //private final Subscriber subscriber;
 
     public Optional<User> findByUsername(String username) {
         System.out.println(userRepository.findByUsernameIgnoreCase(username));
@@ -51,7 +49,6 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(roleService.findRoleByName("ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(false);
-        //notifyUsers.addObserver(new Subscriber(user.getUsername()));
         return userRepository.save(user);
     }
 

@@ -7,7 +7,6 @@ angular.module('market').controller('authController', function ($scope, $http, $
     $scope.tryToAuth = function () {
         $http.post(contextPath + 'auth', $scope.user)
             .then(function successCallback(response) {
-                console.log(response)
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.winterMarketUser = {username: $scope.user.username, token: response.data.token};

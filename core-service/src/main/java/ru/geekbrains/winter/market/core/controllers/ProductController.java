@@ -84,7 +84,7 @@ public class ProductController {
                     )
             }
     )
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto createNewProduct(@RequestBody ProductDto productDto) {
         return productConverter.entityToDto(productService.createNewProduct(productDto));

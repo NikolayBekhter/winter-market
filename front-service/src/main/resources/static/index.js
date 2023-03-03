@@ -79,12 +79,10 @@ angular.module('market').controller('indexController', function ($rootScope, $lo
     };
 
     $rootScope.isRoleAdmin = function () {
-        console.log("here")
         $http.get(contextPath + 'users/get_roles/' + $localStorage.winterMarketUser.username)
             .then(function (response) {
                 let roles = response.data;
                 $rootScope.roleIndex = roles.findIndex(item => item.name === 'ROLE_ADMIN');
-                console.log($rootScope.roleIndex);
             })
     };
 
@@ -114,12 +112,9 @@ angular.module('market').controller('indexController', function ($rootScope, $lo
     };
 
     $rootScope.isActiveUser = function (username) {
-        console.log("isActiveUser")
         $http.get(contextPath + 'users/is_active/' + username)
             .then(function (response) {
-                //console.log(response.data.active);
                 $rootScope.isActive = response.data;
-                console.log($rootScope.isActive.active)
             })
     };
 
