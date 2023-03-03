@@ -4,8 +4,14 @@ server:
     context-path: /winter-market-core
 
 spring:
+  flyway:
+    baseline-on-migrate: true
+    url: jdbc:postgresql://localhost:5432/winter-market?options=--search_path%3Dwinter-market
+    user: postgres
+    password: admin
+    validate-on-migrate: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/winter-market
+    url: jdbc:postgresql://localhost:5432/winter-market?options=--search_path%3Dwinter-market
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: admin

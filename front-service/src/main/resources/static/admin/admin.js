@@ -1,10 +1,10 @@
 angular.module('market').controller('adminController', function ($scope, $http, $localStorage) {
     // использовать для локального подключения
-    const contextPathCore = 'http://localhost:5555/core/api/v1/';
-    const contextPathAuth = 'http://localhost:5555/auth/api/v1/';
+    // const contextPathCore = 'http://localhost:5555/core/api/v1/';
+    // const contextPathAuth = 'http://localhost:5555/auth/api/v1/';
     // использовать для удаленного подключения
-    // const contextPathCore = 'http://95.165.90.118:443/core/api/v1/';
-    // const contextPathAuth = 'http://95.165.90.118:443/auth/api/v1/';
+    const contextPathCore = 'http://95.165.90.118:443/core/api/v1/';
+    const contextPathAuth = 'http://95.165.90.118:443/auth/api/v1/';
 
     /*$scope.deleteProduct = function (productId) {
         $http.delete(contextPath + 'products/' + productId)
